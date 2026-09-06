@@ -170,7 +170,7 @@ import { site } from '../data/site';
     </section>
 
     <!-- ============ FEATURED ============ -->
-    <section class="section section--paper" id="featured">
+    <section class="section section--orange" id="featured">
       <div class="wrap stack-lg">
         <p class="eyebrow">Featured on &amp; trusted by</p>
         <h2 class="h-1">Proven on the biggest stages</h2>
@@ -333,19 +333,17 @@ import { site } from '../data/site';
 
   /* ---------- Featured ---------- */
   .featured__list {
-    list-style: none; margin: 0;
-    background: var(--orange); border-radius: 10px;
-    padding: 3rem 2.5rem;
+    list-style: none; margin: 0; padding: 0;
     display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 3rem 2rem; align-items: center;
+    gap: 3.5rem 2rem; align-items: center;
   }
   .featured__list li { display: grid; place-items: center; }
   .featured__list img {
-    max-height: 2.75rem; max-width: 82%; width: auto; height: auto;
+    max-height: 2.9rem; max-width: 82%; width: auto; height: auto;
     object-fit: contain;
   }
   @media (max-width: 860px) {
-    .featured__list { grid-template-columns: repeat(2, 1fr); padding: 2.25rem 1.5rem; gap: 2.5rem 1.25rem; }
+    .featured__list { grid-template-columns: repeat(2, 1fr); gap: 3rem 1.5rem; }
   }
   @media (max-width: 860px) { .featured__list { grid-template-columns: repeat(2, 1fr); } }
 

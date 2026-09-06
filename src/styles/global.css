@@ -105,6 +105,10 @@ h1, h2, h3, h4 {
 .section--paper .lead { color: #55535a; }
 .section--paper .eyebrow { color: var(--orange); }
 
+.section--orange { background: var(--orange); color: var(--ink); }
+.section--orange .lead { color: rgba(10, 10, 11, 0.74); }
+.section--orange .eyebrow { color: rgba(10, 10, 11, 0.62); }
+
 .stack > * + * { margin-top: 1rem; }
 .stack-lg > * + * { margin-top: 2rem; }
 
