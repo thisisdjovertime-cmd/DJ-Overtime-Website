@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const eventTypes = [
+  'Nightclub / Nightlife',
+  'Festival',
+  'Sports watch party',
+  'Corporate event',
+  'Hotel / Hospitality',
+  'Brand activation',
+  'Private function',
+  'Other',
+];
+---
+
+<Base
+  title="Booking"
+  description="Book THISISOVERTIME for nightlife, festivals, sports watch parties, corporate events and brand activations. Based in Orlando, available worldwide."
+>
+  <Nav home={false} />
+
+  <main id="main" class="booking">
+    <div class="wrap booking__inner">
+      <div class="booking__intro stack">
+        <p class="eyebrow">Booking</p>
+        <h1 class="h-1">Book THISISOVERTIME</h1>
+        <hr class="neon-rule" />
+        <p class="lead">
+          Tell us about your event. Requests go straight to the booking team and we&rsquo;ll
+          reply with availability and next steps.
+        </p>
+        <ul class="booking__direct">
+          <li><a href={`mailto:${site.contact.bookingEmail}`}>{site.contact.bookingEmail}</a></li>
+          <li><a href={`tel:${site.contact.phone}`}>{site.contact.phoneDisplay}</a></li>
+          <li><a href={site.socials[0].url} target="_blank" rel="noopener noreferrer">{site.socials[0].handle}</a></li>
+        </ul>
+      </div>
+
+      <form
+        class="booking__form stack"
+        name="booking"
+        method="POST"
+        action="/booking/success"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="booking" />
+        <p class="hp" hidden>
+          <label>Don&rsquo;t fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Your name *</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label class="field">
+            <span>Company / organization</span>
+            <input type="text" name="company" autocomplete="organization" />
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Email *</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label class="field">
+            <span>Phone</span>
+            <input type="tel" name="phone" autocomplete="tel" />
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Event type *</span>
+            <select name="event_type" required>
+              <option value="" disabled selected>Select&hellip;</option>
+              {eventTypes.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </label>
+          <label class="field">
+            <span>Event date</span>
+            <input type="date" name="event_date" />
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Venue / city *</span>
+            <input type="text" name="location" required placeholder="Venue name, city, state/country" />
+          </label>
+          <label class="field">
+            <span>Estimated guests</span>
+            <input type="text" name="guests" inputmode="numeric" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Budget range</span>
+          <input type="text" name="budget" placeholder="Optional — helps us tailor the offer" />
+        </label>
+
+        <label class="field">
+          <span>Tell us about the event *</span>
+          <textarea name="message" rows="5" required
+            placeholder="Format, vibe, set length, other acts, AV/production contacts, anything else."></textarea>
+        </label>
+
+        <button class="btn" type="submit">Send booking request</button>
+        <p class="booking__fineprint">
+          By submitting you agree to be contacted about this enquiry. We don&rsquo;t share your details.
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .booking { padding-block: clamp(7rem, 14vw, 11rem) var(--section-y); }
+  .booking__inner { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 7vw, 6rem); align-items: start; }
+  .booking__direct { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .booking__direct a { color: var(--orange); }
+
+  .booking__form { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field > span {
+    font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 0.78rem; color: var(--mute);
+  }
+  .field input, .field select, .field textarea {
+    background: var(--ink); border: 1px solid var(--line); color: var(--white);
+    padding: 0.8rem 0.9rem; border-radius: 3px; font: inherit; width: 100%;
+  }
+  .field textarea { resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--orange); }
+  .booking__form .btn { justify-content: center; margin-top: 0.5rem; }
+  .booking__fineprint { color: var(--mute); font-size: 0.8rem; }
+
+  @media (max-width: 900px) {
+    .booking__inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .field-row { grid-template-columns: 1fr; }
+  }
+</style>

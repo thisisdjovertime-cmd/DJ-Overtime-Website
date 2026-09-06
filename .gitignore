@@ -1,0 +1,34 @@
+# build output
+dist/
+.astro/
+.netlify/
+
+# dependencies
+node_modules/
+
+# env / secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision
+secrets.json
+credentials.json
+
+# raw / working assets (not for the public site)
+assets-inbox/
+
+# macOS
+.DS_Store
+._*
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# logs
+npm-debug.log*
+yarn-error.log*

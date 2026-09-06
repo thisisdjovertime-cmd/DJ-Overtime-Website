@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { site } from '../../data/site';
+---
+
+<Base title="Request received" noindex>
+  <Nav home={false} />
+  <main id="main" class="thanks">
+    <div class="wrap stack">
+      <p class="eyebrow">Booking</p>
+      <h1 class="h-1">Request received</h1>
+      <hr class="neon-rule" />
+      <p class="lead">
+        Thanks &mdash; your booking request is in. The team will get back to you at the email
+        you provided, usually within a couple of business days.
+      </p>
+      <p>
+        Something urgent? Email <a href={`mailto:${site.contact.bookingEmail}`}>{site.contact.bookingEmail}</a>
+        or call <a href={`tel:${site.contact.phone}`}>{site.contact.phoneDisplay}</a>.
+      </p>
+      <a class="btn" href="/">Back to home</a>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .thanks { padding-block: clamp(8rem, 16vw, 12rem) var(--section-y); }
+  .thanks a:not(.btn) { color: var(--orange); }
+</style>

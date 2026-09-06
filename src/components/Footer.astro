@@ -1,0 +1,65 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <img src="/assets/logo-wordmark-white.png" alt={site.name} width="260" height="102" />
+      <p class="lead">{site.heroLine}</p>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="h-3">Booking</h4>
+      <a href={`mailto:${site.contact.bookingEmail}`}>{site.contact.bookingEmail}</a>
+      <a href={`tel:${site.contact.phone}`}>{site.contact.phoneDisplay}</a>
+      <a href="/booking">Booking form</a>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="h-3">Follow</h4>
+      {site.socials.map((s) => (
+        <a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a>
+      ))}
+    </div>
+
+    <div class="footer__col">
+      <h4 class="h-3">Listen</h4>
+      {site.music.map((m) => (
+        <a href={m.url} target="_blank" rel="noopener noreferrer">{m.title}</a>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap footer__base">
+    <span>&copy; {year} {site.name}. All rights reserved.</span>
+    <span>{site.contact.baseLocation} &middot; Available worldwide</span>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--ink-2); border-top: 1px solid var(--line); padding-block: clamp(3rem, 7vw, 5rem) 2rem; }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+  .footer__brand img { width: clamp(200px, 26vw, 260px); height: auto; margin-bottom: 1.25rem; }
+  .footer__col { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer__col h4 { margin-bottom: 0.4rem; }
+  .footer__col a, .footer__brand a { color: var(--mute); transition: color 0.15s ease; }
+  .footer__col a:hover { color: var(--orange); }
+  .footer__base {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+    color: var(--mute); font-size: 0.85rem;
+  }
+  @media (max-width: 860px) {
+    .footer__grid { grid-template-columns: 1fr 1fr; }
+    .footer__brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) {
+    .footer__grid { grid-template-columns: 1fr; }
+  }
+</style>

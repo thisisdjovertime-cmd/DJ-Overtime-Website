@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path-relative OG image in /public, e.g. "/og/home.jpg" */
+  ogImage?: string;
+  /** Set true on non-index pages you don't want as the canonical brand result */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  ogImage = '/og/default.jpg',
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title
+  ? `${title} — ${site.titleName}`
+  : `${site.titleName} — ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, site.domain).href;
+const ogImageAbs = new URL(ogImage, site.domain).href;
+
+// --- Structured data (JSON-LD) ---
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: site.name,
+  alternateName: 'DJ Overtime',
+  url: site.domain,
+  image: ogImageAbs,
+  description: site.description,
+  genre: [...site.genres],
+  email: site.contact.bookingEmail,
+  telephone: site.contact.phone,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Orlando',
+    addressRegion: 'FL',
+    addressCountry: 'US',
+  },
+  sameAs: site.socials.map((s) => s.url),
+  memberOf: {
+    '@type': 'Organization',
+    name: 'Stadium Club (Caribe Royale Orlando)',
+  },
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.domain,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <meta name="theme-color" content="#0a0a0b" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Saira+Condensed:wght@600;700&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

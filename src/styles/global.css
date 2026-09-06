@@ -1,0 +1,160 @@
+/* ============================================================
+   THISISOVERTIME — design system
+   Dark-dominant, high-end. Orange brand + magenta neon accent.
+   ============================================================ */
+
+:root {
+  /* Brand */
+  --ink: #0a0a0b;          /* near-black base */
+  --ink-2: #141416;        /* raised surface */
+  --ink-3: #1d1d20;        /* cards / borders base */
+  --paper: #f4f2ee;        /* light section bg */
+  --paper-ink: #101012;    /* text on light */
+
+  --white: #ffffff;
+  --mute: #a3a1a6;         /* secondary text on dark */
+  --line: rgba(255, 255, 255, 0.12);
+
+  --orange: #f2601f;       /* primary brand */
+  --orange-bright: #ff6a24;
+  --magenta: #ff2fb0;      /* neon accent — use sparingly */
+
+  /* Type */
+  --font-display: 'Saira Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --maxw: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-y: clamp(4.5rem, 10vw, 9rem);
+  --radius: 4px;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--orange-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.h-hero   { font-size: clamp(3.25rem, 12vw, 9.5rem); }
+.h-1      { font-size: clamp(2.4rem, 7vw, 5rem); }
+.h-2      { font-size: clamp(1.9rem, 4.5vw, 3.25rem); }
+.h-3      { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+
+.eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--orange);
+}
+
+.lead { font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem); color: var(--mute); }
+
+/* ---------- Layout helpers ---------- */
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); }
+.section--paper { background: var(--paper); color: var(--paper-ink); }
+.section--paper .lead { color: #55535a; }
+.section--paper .eyebrow { color: var(--orange); }
+
+.stack > * + * { margin-top: 1rem; }
+.stack-lg > * + * { margin-top: 2rem; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--orange);
+  --btn-fg: #0a0a0b;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.95em 1.7em;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1rem;
+  border: 1px solid var(--btn-bg);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+.btn:hover { transform: translateY(-2px); background: var(--orange-bright); }
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--white);
+  border-color: var(--line);
+}
+.btn--ghost:hover { background: rgba(255,255,255,0.06); border-color: var(--white); }
+.btn--on-paper.btn--ghost { --btn-fg: var(--paper-ink); border-color: rgba(0,0,0,0.2); }
+.btn--on-paper.btn--ghost:hover { background: rgba(0,0,0,0.05); border-color: #000; }
+
+/* ---------- Neon divider accent ---------- */
+.neon-rule {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(90deg, var(--orange), var(--magenta));
+  width: 84px;
+  margin: 0;
+}
+
+/* ---------- Utility ---------- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 1rem; top: -3rem; z-index: 999;
+  background: var(--orange); color: #000; padding: 0.6rem 1rem; font-weight: 700;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 1rem; }
