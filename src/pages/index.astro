@@ -179,7 +179,16 @@ import { site } from '../data/site';
           platforms and brands across live entertainment, sports and hospitality.
         </p>
         <ul class="featured__list">
-          {site.partners.map((p) => <li>{p}</li>)}
+          {site.partners.map((p) => (
+            <li>
+              <img
+                src={`/assets/partners/${p.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}.png`}
+                alt={p}
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </section>
@@ -324,14 +333,19 @@ import { site } from '../data/site';
 
   /* ---------- Featured ---------- */
   .featured__list {
-    list-style: none; padding: 0; margin: 0;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-    background: rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.12);
+    list-style: none; margin: 0;
+    background: var(--orange); border-radius: 10px;
+    padding: 3rem 2.5rem;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2rem; align-items: center;
   }
-  .featured__list li {
-    background: var(--paper); padding: 2rem 1rem; text-align: center;
-    font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em;
-    font-size: 1.05rem; display: grid; place-items: center;
+  .featured__list li { display: grid; place-items: center; }
+  .featured__list img {
+    max-height: 2.75rem; max-width: 82%; width: auto; height: auto;
+    object-fit: contain;
+  }
+  @media (max-width: 860px) {
+    .featured__list { grid-template-columns: repeat(2, 1fr); padding: 2.25rem 1.5rem; gap: 2.5rem 1.25rem; }
   }
   @media (max-width: 860px) { .featured__list { grid-template-columns: repeat(2, 1fr); } }
 
