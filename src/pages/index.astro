@@ -12,8 +12,20 @@ import { site } from '../data/site';
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="hero__media">
-        <!-- Swap src for the wide Stadium Club shot (headphones toward lens) -->
+        <video
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/assets/hero-poster.jpg"
+        >
+          <source src="/assets/hero.webm" type="video/webm" />
+          <source src="/assets/hero.mp4" type="video/mp4" />
+        </video>
         <img
+          class="hero__fallback"
           src="/assets/hero.jpg"
           alt="THISISOVERTIME performing at Stadium Club, Caribe Royale Orlando"
           width="1920"
@@ -73,15 +85,33 @@ import { site } from '../data/site';
             {site.genres.map((g) => <li>{g}</li>)}
           </ul>
         </div>
-        <figure class="about__figure">
-          <img
-            src="/assets/about.jpg"
-            alt="THISISOVERTIME portrait"
-            width="900"
-            height="1200"
-            loading="lazy"
-          />
-        </figure>
+        <div class="gallery about__figure" role="region" aria-roledescription="carousel" aria-label="THISISOVERTIME photos" tabindex="0" data-carousel>
+          <div class="gallery__track" data-carousel-track>
+            {site.aboutGallery.map((img, i) => (
+              <figure class="gallery__slide" id={`pg-${i}`}>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  width="1000"
+                  height="1250"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </figure>
+            ))}
+          </div>
+          {site.aboutGallery.length > 1 && (
+            <>
+              <a class="gallery__arrow gallery__arrow--prev" href={`#pg-${site.aboutGallery.length - 1}`} aria-label="Previous photo" data-carousel-prev>&lsaquo;</a>
+              <a class="gallery__arrow gallery__arrow--next" href="#pg-1" aria-label="Next photo" data-carousel-next>&rsaquo;</a>
+              <div class="gallery__dots">
+                {site.aboutGallery.map((_, i) => (
+                  <a href={`#pg-${i}`} aria-label={`Go to photo ${i + 1}`} data-carousel-dot aria-current={i === 0 ? 'true' : 'false'}><span></span></a>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </section>
 
@@ -218,7 +248,16 @@ import { site } from '../data/site';
   /* ---------- Hero ---------- */
   .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding-block: 8rem 4rem; overflow: hidden; }
   .hero__media { position: absolute; inset: 0; z-index: -1; background: #000; }
-  .hero__media img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+  .hero__media img,
+  .hero__media video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.55;
+  }
+  .hero__fallback { z-index: 0; }
+  .hero__video { z-index: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__video { display: none; }
+  }
   .hero__scrim {
     position: absolute; inset: 0;
     background:
@@ -257,17 +296,55 @@ import { site } from '../data/site';
   }
 
   /* ---------- About ---------- */
-  .about { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .about { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
   .about__genres { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; padding: 0; margin: 0; }
   .about__genres li {
     border: 1px solid var(--line); padding: 0.4rem 0.9rem; border-radius: 999px;
     font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem;
   }
   .about__figure { margin: 0; }
-  .about__figure img {
-    width: 100%; max-height: 620px; object-fit: cover; object-position: center 20%;
-    border-radius: var(--radius); filter: grayscale(0.1) contrast(1.03);
+
+  /* ---------- Profile carousel ---------- */
+  .gallery { position: relative; min-width: 0; }
+  .gallery:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; }
+  .gallery__track {
+    display: flex; min-width: 0; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; border-radius: var(--radius);
+    scrollbar-width: none; -ms-overflow-style: none;
   }
+  .gallery__track::-webkit-scrollbar { display: none; }
+  .gallery__slide {
+    position: relative; flex: 0 0 100%; min-width: 0; margin: 0; scroll-snap-align: start;
+  }
+  .gallery__slide img {
+    display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+    filter: grayscale(0.08) contrast(1.03);
+  }
+  .gallery__arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
+    font-size: 1.6rem; line-height: 1; text-decoration: none;
+    color: var(--white); background: rgba(10, 10, 11, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 999px;
+    backdrop-filter: blur(4px); transition: background 0.15s ease;
+  }
+  .gallery__arrow:hover { background: var(--orange); border-color: var(--orange); }
+  .gallery__arrow--prev { left: 0.75rem; }
+  .gallery__arrow--next { right: 0.75rem; }
+  .gallery__dots {
+    position: absolute; left: 0; right: 0; bottom: 0.9rem;
+    display: flex; justify-content: center; gap: 0.5rem;
+  }
+  .gallery__dots a { display: block; padding: 0.35rem; }
+  .gallery__dots span {
+    display: block; width: 7px; height: 7px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.5); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .gallery__dots a[aria-current='true'] span { background: var(--orange); transform: scale(1.35); }
+  @media (hover: none) { .gallery__arrow { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .gallery__track { scroll-behavior: auto; } }
+
   @media (max-width: 860px) { .about { grid-template-columns: 1fr; } .about__figure { order: -1; } }
 
   /* ---------- Image band ---------- */
@@ -352,3 +429,7 @@ import { site } from '../data/site';
   .booking-cta .hero__actions { justify-content: center; }
   .booking-cta .lead { margin-inline: auto; max-width: 46ch; }
 </style>
+
+<script>
+  import '../scripts/carousel.js';
+</script>

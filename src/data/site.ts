@@ -110,6 +110,18 @@ export const site = {
   ],
 
   genres: ['Open Format', 'Hip-Hop', 'Latin', 'EDM', 'House'],
+
+  // Profile carousel (src/pages/index.astro #about). Files in public/assets/about/,
+  // cropped 4:5 portrait. Add/remove/reorder freely.
+  aboutGallery: [
+    { src: '/assets/about/booth-stadium-club.jpg', alt: 'THISISOVERTIME in the DJ booth at Stadium Club, Caribe Royale Orlando' },
+    { src: '/assets/about/light-spin.jpg', alt: 'THISISOVERTIME mixing under spinning light trails' },
+    { src: '/assets/about/headphones-crowd.jpg', alt: 'THISISOVERTIME holding headphones out over the crowd' },
+    { src: '/assets/about/boxing-ring-set.jpg', alt: 'THISISOVERTIME performing at a boxing event' },
+    { src: '/assets/about/world-cup-trophy.jpg', alt: 'THISISOVERTIME with the World Cup trophy at the Telemundo and Peacock activation' },
+    { src: '/assets/about/bw-set.jpg', alt: 'THISISOVERTIME performing, black and white' },
+    { src: '/assets/about/studio-portrait.jpg', alt: 'THISISOVERTIME portrait' },
+  ],
 } as const;
 
 export type Site = typeof site;

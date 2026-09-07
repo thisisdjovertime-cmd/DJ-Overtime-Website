@@ -8,15 +8,13 @@
 # ----------------------------------------------------------------------------
 # Security headers
 # ----------------------------------------------------------------------------
-# The CSP script-src hash below covers the single small inline script that
-# Astro bundles from src/scripts/nav.js. If that script changes, regenerate it:
-#   npm run build
-#   then sha256 the contents of the <script type="module"> block in dist/index.html
-#   (base64), e.g. with the snippet in README.md.
+# Astro bundles all client scripts (src/scripts/*) into hashed same-origin ES
+# modules under /_astro/, so `script-src 'self'` covers them with no inline hash.
+# media-src falls back to default-src 'self' and covers the self-hosted hero video.
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8PF1tu8OWcd79eeXmEfpIypOeRq5GsBdhwAo/YWdysA='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; media-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"

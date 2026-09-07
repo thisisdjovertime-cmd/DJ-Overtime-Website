@@ -64,13 +64,9 @@ booking form runs through Netlify Forms, there is no backend or `.env`.
 
 - Image EXIF/GPS metadata is stripped before commit.
 - Security headers (CSP, HSTS, etc.) are set in `netlify.toml`.
-- The CSP `script-src` includes a sha256 hash for the one inline script Astro bundles
-  from `src/scripts/nav.js`. **If you edit that script**, regenerate the hash:
-  ```bash
-  npm run build
-  node -e "const fs=require('fs'),c=require('crypto');const m=fs.readFileSync('dist/index.html','utf8').match(/<script type=\"module\">([\s\S]*?)<\/script>/);console.log('sha256-'+c.createHash('sha256').update(m[1]).digest('base64'))"
-  ```
-  Paste the result into the `Content-Security-Policy` line in `netlify.toml`.
+- Client scripts (`src/scripts/*`) are bundled by Astro into hashed same-origin ES
+  modules under `/_astro/`, so the CSP just uses `script-src 'self'` — no inline-hash
+  bookkeeping when you edit a script.
 
 Recommended GitHub repo settings (Settings → …):
 - **Code security**: enable Secret scanning + Push protection, Dependabot alerts.
