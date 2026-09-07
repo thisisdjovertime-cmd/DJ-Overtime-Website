@@ -1,0 +1,27 @@
+<!doctype html>
+<!--
+  Static form definition for Netlify Forms detection.
+  Netlify's build-time bot scans deployed HTML for forms. Framework-rendered
+  pages can change between builds, so this plain copy guarantees the "booking"
+  form and every field stay registered. Not linked anywhere; safe to leave.
+  The user-facing form lives in src/pages/booking.astro — keep fields in sync.
+-->
+<html lang="en">
+  <head><meta charset="utf-8" /><title>Netlify form definitions</title></head>
+  <body>
+    <form name="booking" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="booking" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="text" name="company" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="event_type" />
+      <input type="date" name="event_date" />
+      <input type="text" name="location" />
+      <input type="text" name="guests" />
+      <input type="text" name="budget" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
