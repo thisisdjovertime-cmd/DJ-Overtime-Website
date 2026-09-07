@@ -45,6 +45,11 @@ export const site = {
       artists: 'Rashid & Eknuel',
       url: 'https://distrokid.com/hyperfollow/rashidandeknuel/desde-aquel-dia',
     },
+    {
+      title: 'GANAS DE VERTE',
+      artists: 'Rashid & Eknuel',
+      url: 'https://social.tunecore.com/linkShare?linkid=SVkWVJXV3V7t8yclw1x-iQ',
+    },
   ],
 
   // Mixes — hearthis.at embeds (id + per-track embed secret from the share code)
