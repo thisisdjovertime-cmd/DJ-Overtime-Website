@@ -67,6 +67,8 @@ booking form runs through Netlify Forms, there is no backend or `.env`.
 - Client scripts (`src/scripts/*`) are bundled by Astro into hashed same-origin ES
   modules under `/_astro/`, so the CSP just uses `script-src 'self'` — no inline-hash
   bookkeeping when you edit a script.
+- Third-party embeds need their origin whitelisted in the CSP `netlify.toml`:
+  `frame-src` for iframes (hearthis.at mixes), `img-src` for thumbnails, etc.
 
 Recommended GitHub repo settings (Settings → …):
 - **Code security**: enable Secret scanning + Push protection, Dependabot alerts.

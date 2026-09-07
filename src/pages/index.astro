@@ -182,6 +182,32 @@ import { site } from '../data/site';
           ))}
         </div>
 
+        <div class="mixes">
+          <h3 class="h-3">Mixes</h3>
+          <div class="mixes__list">
+            {site.mixes.map((mix) => (
+              <iframe
+                class="mixes__player"
+                title={`${mix.title} — DJ mix on hearthis.at`}
+                src={`https://app.hearthis.at/embed/${mix.id}/transparent_black/?secret=${mix.secret}&hcolor=&color=&style=2&block_size=2&block_space=1&background=1&waveform=0&cover=0&autoplay=0&css=`}
+                width="100%"
+                height="150"
+                loading="lazy"
+                scrolling="no"
+                frameborder="0"
+                allowtransparency
+                allow="autoplay"
+              >
+                <p>
+                  Listen to <a href={mix.url} target="_blank" rel="noopener noreferrer">{mix.title}</a>
+                  {' '}by <a href="https://hearthis.at/tiot/" target="_blank" rel="noopener noreferrer">TIOT</a>
+                  {' '}on <a href="https://hearthis.at/" target="_blank" rel="noopener noreferrer">hearthis.at</a>
+                </p>
+              </iframe>
+            ))}
+          </div>
+        </div>
+
         <div class="music">
           <h3 class="h-3">Releases</h3>
           <ul class="music__list">
@@ -391,6 +417,13 @@ import { site } from '../data/site';
     font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.9rem;
   }
   @media (max-width: 860px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .mixes { margin-top: 3rem; }
+  .mixes__list { display: grid; gap: 1rem; margin-top: 1rem; }
+  .mixes__player {
+    display: block; width: 100%; border: 1px solid var(--line);
+    border-radius: var(--radius); background: var(--ink-2);
+  }
 
   .music { margin-top: 3rem; }
   .music__list { list-style: none; padding: 0; margin: 1rem 0 0; border-top: 1px solid var(--line); }

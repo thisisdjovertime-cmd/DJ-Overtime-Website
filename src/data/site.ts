@@ -47,6 +47,16 @@ export const site = {
     },
   ],
 
+  // Mixes — hearthis.at embeds (id + per-track embed secret from the share code)
+  mixes: [
+    {
+      title: 'THIS IS OVERTIME 1',
+      id: '14664806',
+      secret: 'rAB',
+      url: 'https://hearthis.at/tiot/overtime-1/',
+    },
+  ],
+
   // Video — YouTube
   videos: [
     { title: 'FOX 35', id: 'XO_TOBD197k', kind: 'video' as const },
