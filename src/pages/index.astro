@@ -10,20 +10,31 @@ import { site } from '../data/site';
 
   <main id="main">
     <!-- ============ HERO ============ -->
+    <section class="hero-video" aria-label="THISISOVERTIME hero video">
+      <video
+        class="hero-video__player"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="/assets/hero-poster.jpg"
+      >
+        <source src="/assets/hero.webm" type="video/webm" />
+        <source src="/assets/hero.mp4" type="video/mp4" />
+      </video>
+      <audio src="/assets/hype-intro.mp3" preload="auto" data-hero-audio></audio>
+      <button type="button" class="hero-video__sound" data-hero-sound data-state="off" aria-pressed="false" aria-label="Play intro audio">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" />
+          <path class="on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+          <path class="off" d="m16 9 6 6m0-6-6 6" />
+        </svg>
+      </button>
+    </section>
+
     <section class="hero">
       <div class="hero__media">
-        <video
-          class="hero__video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="/assets/hero-poster.jpg"
-        >
-          <source src="/assets/hero.webm" type="video/webm" />
-          <source src="/assets/hero.mp4" type="video/mp4" />
-        </video>
         <img
           class="hero__fallback"
           src="/assets/hero.jpg"
@@ -272,7 +283,17 @@ import { site } from '../data/site';
 
 <style>
   /* ---------- Hero ---------- */
-  .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding-block: 8rem 4rem; overflow: hidden; }
+  .hero-video { position: relative; height: 100svh; background: #000; }
+  .hero-video__player { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero-video__sound {
+    position: absolute; right: 1.25rem; bottom: 1.25rem; z-index: 2;
+    width: 48px; height: 48px; display: grid; place-items: center;
+    color: #fff; background: rgba(10,10,11,0.55); border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%; cursor: pointer; backdrop-filter: blur(6px);
+  }
+  .hero-video__sound:hover { background: rgba(242, 96, 31, 0.85); }
+  .hero-video__sound[data-state="on"] .off, .hero-video__sound[data-state="off"] .on { display: none; }
+  .hero { position: relative; isolation: isolate; min-height: 100svh; display: flex; align-items: flex-end; padding-block: 8rem 4rem; overflow: hidden; }
   .hero__media { position: absolute; inset: 0; z-index: -1; background: #000; }
   .hero__media img,
   .hero__media video {
@@ -280,10 +301,6 @@ import { site } from '../data/site';
     object-fit: cover; opacity: 0.55;
   }
   .hero__fallback { z-index: 0; }
-  .hero__video { z-index: 1; }
-  @media (prefers-reduced-motion: reduce) {
-    .hero__video { display: none; }
-  }
   .hero__scrim {
     position: absolute; inset: 0;
     background:
@@ -466,4 +483,5 @@ import { site } from '../data/site';
 
 <script>
   import '../scripts/carousel.js';
+  import '../scripts/hero-audio.js';
 </script>
