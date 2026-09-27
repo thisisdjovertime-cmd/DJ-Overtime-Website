@@ -16,7 +16,7 @@ const videoSchema = {
 
 <Base description="THISISOVERTIME — high-energy open-format DJ, Resident DJ at Stadium Club Orlando. Booking nightlife, festivals, sports watch parties & brand activations worldwide.">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
-  <link slot="head" rel="preload" as="image" href="/assets/hero-poster.jpg" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/assets/hero-poster-mobile.jpg" fetchpriority="high" />
   <Nav />
 
   <main id="main">
@@ -29,8 +29,10 @@ const videoSchema = {
         loop
         playsinline
         preload="auto"
-        poster="/assets/hero-poster.jpg"
+        poster="/assets/hero-poster-mobile.jpg"
       >
+        <source src="/assets/hero-mobile.webm" type="video/webm" media="(max-width: 768px)" />
+        <source src="/assets/hero-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
         <source src="/assets/hero.webm" type="video/webm" />
         <source src="/assets/hero.mp4" type="video/mp4" />
       </video>
