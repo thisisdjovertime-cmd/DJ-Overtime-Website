@@ -3,9 +3,19 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'THISISOVERTIME — live DJ performance',
+  description: 'THISISOVERTIME performing live, resident DJ at Stadium Club (Caribe Royale Orlando).',
+  thumbnailUrl: new URL('/assets/hero-poster.jpg', site.domain).href,
+  uploadDate: '2025-01-01',
+  contentUrl: new URL('/assets/hero.mp4', site.domain).href,
+};
 ---
 
-<Base>
+<Base description="THISISOVERTIME — high-energy open-format DJ, Resident DJ at Stadium Club Orlando. Booking nightlife, festivals, sports watch parties & brand activations worldwide.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
   <Nav />
 
   <main id="main">

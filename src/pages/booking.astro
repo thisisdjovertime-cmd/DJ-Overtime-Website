@@ -14,12 +14,21 @@ const eventTypes = [
   'Private function',
   'Other',
 ];
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain },
+    { '@type': 'ListItem', position: 2, name: 'Booking', item: new URL('/booking', site.domain).href },
+  ],
+};
 ---
 
 <Base
   title="Booking"
   description="Book THISISOVERTIME for nightlife, festivals, sports watch parties, corporate events and brand activations. Based in Orlando, available worldwide."
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <Nav home={false} />
 
   <main id="main" class="booking">
