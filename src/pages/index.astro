@@ -16,6 +16,7 @@ const videoSchema = {
 
 <Base description="THISISOVERTIME — high-energy open-format DJ, Resident DJ at Stadium Club Orlando. Booking nightlife, festivals, sports watch parties & brand activations worldwide.">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
+  <link slot="head" rel="preload" as="image" href="/assets/hero-poster.jpg" fetchpriority="high" />
   <Nav />
 
   <main id="main">
@@ -33,7 +34,7 @@ const videoSchema = {
         <source src="/assets/hero.webm" type="video/webm" />
         <source src="/assets/hero.mp4" type="video/mp4" />
       </video>
-      <audio src="/assets/hype-intro.mp3" preload="auto" data-hero-audio></audio>
+      <audio src="/assets/hype-intro.mp3" preload="none" data-hero-audio></audio>
       <button type="button" class="hero-video__sound" data-hero-sound data-state="off" aria-pressed="false" aria-label="Play intro audio">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" />
@@ -51,7 +52,8 @@ const videoSchema = {
           alt="THISISOVERTIME performing at Stadium Club, Caribe Royale Orlando"
           width="1920"
           height="1280"
-          fetchpriority="high"
+          loading="lazy"
+          decoding="async"
         />
         <div class="hero__scrim"></div>
       </div>
@@ -65,7 +67,8 @@ const videoSchema = {
           alt="THISISOVERTIME"
           width="1600"
           height="625"
-          fetchpriority="high"
+          loading="lazy"
+          decoding="async"
         />
         <p class="lead hero__line">{site.heroLine}</p>
         <div class="hero__actions">
